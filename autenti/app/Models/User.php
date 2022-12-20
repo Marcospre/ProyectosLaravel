@@ -19,7 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
+        'nick',
         'password',
     ];
 
@@ -39,6 +39,19 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'nick_verified_at' => 'datetime',
     ];
+
+
+    public function hasVerifiedNick()
+    {
+        return ! is_null($this->nick_verified_at);
+    }
+
+    public function markNickAsVerified()
+    {
+         return $this->forceFill([
+            'nick_verified_at' => $this->freshTimestamp(),
+        ])->save();
+    }
 }

@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'nick',
         'password',
+        'admin'
     ];
 
     /**
@@ -43,15 +44,8 @@ class User extends Authenticatable
     ];
 
 
-    public function hasVerifiedNick()
-    {
-        return ! is_null($this->nick_verified_at);
-    }
-
-    public function markNickAsVerified()
-    {
-         return $this->forceFill([
-            'nick_verified_at' => $this->freshTimestamp(),
-        ])->save();
+    public function boolean esAdmin(){
+        
+        return ($this->admin)?true:false;
     }
 }

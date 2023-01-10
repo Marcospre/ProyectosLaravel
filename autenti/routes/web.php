@@ -19,7 +19,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']); 
-Route::get('nick/verify', 'NickVerificationController@show')->name('nickverification.notice');
-Route::post('nick/verify', 'NickVerificationController@verify')->name('nickverification.verify');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home')->middleware("isAdmin");
 

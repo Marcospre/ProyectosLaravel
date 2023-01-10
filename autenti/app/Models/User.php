@@ -3,10 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Http\Controllers\HomeController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Symfony\Component\HttpFoundation\Request;
 
 class User extends Authenticatable
 {
@@ -43,9 +45,8 @@ class User extends Authenticatable
         'nick_verified_at' => 'datetime',
     ];
 
+    
 
-    public function boolean esAdmin(){
-        
-        return ($this->admin)?true:false;
-    }
+
+
 }

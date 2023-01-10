@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\User;
+
 class HomeController extends Controller
 {
     /**
@@ -25,4 +27,15 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function esAdmin($id){
+        $usuario = User::table('users')->where('id', $id);
+
+        return $usuario->admin;
+    }
+
+    public function adminHome(){
+        return view('homeAdmin');
+    }
+    
 }

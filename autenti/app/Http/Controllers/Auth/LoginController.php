@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Symfony\Component\HttpFoundation\Request;
 
 class LoginController extends Controller
 {
@@ -38,8 +39,22 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function username()
-        {
-            return 'nick';
+    public function login(Request $request)
+    {
+        $input = $request->all();
+        $this->validate($request,[
+            'nick' => 'required',
+            'password' => 'required'
+        ]);
+
+        if(auth()->attempt(array('nick'=>$input['nick'],'password'=>$input['password']))){
+            if(auth()->user()->admin == true){
+                return redirect()->route('admin.home');
+            }else{
+                return redirect('home');
+            }
+        }else{
+            return redirect()->route('login');
         }
+    }
 }

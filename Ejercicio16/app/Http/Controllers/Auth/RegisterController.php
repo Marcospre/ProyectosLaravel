@@ -82,11 +82,11 @@ class RegisterController extends Controller
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
         ]);
-        return redirect()->intended('login/admin');
+        return redirect()->intended('admin/home');
     }
 
     public function showAdminRegisterForm()
     {
-        return view('auth.register', ['url' => 'admin']);
+        return view('homeAdmin');
     }
 }

@@ -21,11 +21,11 @@ Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::get('admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home');
-    Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm');
-    Route::get('/register/admin', 'Auth\RegisterController@showAdminRegisterForm');
+    Route::get('/login/admin', 'App\Http\Controllers\Auth\LoginController@showAdminLoginForm');
+    Route::get('/register/admin', 'App\Http\Controllers\Auth\RegisterController@showAdminRegisterForm');
 
-    Route::post('/login/admin', 'Auth\LoginController@adminLogin');
-    Route::post('/register/admin', 'Auth\RegisterController@createAdmin');
+    Route::post('/login/admin', 'App\Http\Controllers\Auth\LoginController@adminLogin');
+    Route::post('/register/admin', 'App\Http\Controllers\Auth\RegisterController@createAdmin');
 
     Route::view('/home', 'home')->middleware('auth');
-    Route::view('home/admin', 'homeAdmin');
+    Route::view('/admin', 'admin');

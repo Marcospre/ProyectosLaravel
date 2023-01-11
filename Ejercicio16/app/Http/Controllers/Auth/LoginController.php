@@ -44,7 +44,7 @@ class LoginController extends Controller
 
     public function showAdminLoginForm()
     {
-        return view('homeAdmin');
+        return view('auth.login', ['url' => 'admin']);
     }
 
     public function adminLogin(Request $request)
@@ -56,7 +56,7 @@ class LoginController extends Controller
 
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
 
-            return redirect()->intended('admin/home');
+            return redirect()->intended('/admin');
         }
         return back()->withInput($request->only('email', 'remember'));
     }

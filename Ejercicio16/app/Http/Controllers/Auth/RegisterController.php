@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Administrador;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
@@ -77,16 +78,16 @@ class RegisterController extends Controller
     protected function createAdmin(Request $request)
     {
         $this->validator($request->all())->validate();
-        $admin = Administrador::create([
+        $admin = Admin::create([
             'name' => $request['name'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
         ]);
-        return redirect()->intended('admin/home');
+        return redirect()->intended('login/admin');
     }
 
     public function showAdminRegisterForm()
     {
-        return view('homeAdmin');
+        return view('auth.register', ['url' => 'admin']);
     }
 }

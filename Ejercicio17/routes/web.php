@@ -40,3 +40,12 @@ Route::post('/email/verification-notification', function (Request $request) {
 Route::get('/profile', function () {
 
 })->middleware('verified');
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});

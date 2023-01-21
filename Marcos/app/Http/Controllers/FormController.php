@@ -10,9 +10,9 @@ use Validator;
 class FormController extends Controller
 {
     public function logearUsuario(Request $req){
+        $encon = false;
         $validator = Validator::make($req->all(), [
             'name' => 'required',
-            'email' => 'required',
             'contrasena' => 'required'
         ]);
 
@@ -22,11 +22,20 @@ class FormController extends Controller
                 ->withInput();
         }
 
-        if(Auth::check()){
-            return view('logeado');
-        }else{
-            return redirect('/inicio');
+        $alumnos = Alumnos::all();
+
+        foreach ($alumnos as $alumno) {
+            if($alumno->name == $req->name){
+                $encon = true;
+                $email = $alumno->email;
+               return view('logeado',compact('email'));    
+            }
         }
+
+        if($encon==false){
+            return redirect(url('inicio'));
+        }
+       
     }
 
 
@@ -34,7 +43,7 @@ class FormController extends Controller
         $validator = Validator::make($req->all(), [
             'name' => 'required',
             'email' => 'required',
-            'contrasena' => 'required'
+            'contrasena' => 'required|regex:/^[a-zA-Z]\d+[a-zA-Z]$/'
         ]);
 
         if($validator->fails()){
@@ -43,8 +52,12 @@ class FormController extends Controller
                 ->withInput();
         }
 
-        $alumno = Alumnos::create($req->all());
-        $alumno->save();
+        $alumno = Alumnos::create([
+            'name'=>$req['name'],
+            'email'=>$req['email'],
+            'contrasena'=>$req['contrasena']
+        ]);
+
         return redirect(url('/inicio'));
     }
 }

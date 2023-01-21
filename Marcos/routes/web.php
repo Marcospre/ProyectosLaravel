@@ -30,6 +30,8 @@ Route::get('registro', function () {
     return view('register');
 });
 
+
+
 Route::post('registrarUsuario', [FormController::class, 'registrarUsuario']);
 
 Route::post('logearUsuario',[FormController::class,'logearUsuario']);
